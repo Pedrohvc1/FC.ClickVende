@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FC.ClickVende.API.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class ClientController : ControllerBase
 {
     private readonly ClientService _clientService;
@@ -13,6 +13,7 @@ public class ClientController : ControllerBase
     {
         _clientService = new ClientService();
     }
+
     [HttpPost]
     public IActionResult Post([FromBody] ClientDTO client)
     {
@@ -21,7 +22,7 @@ public class ClientController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult Get(int id)
+    public IActionResult Get(Guid id)
     {
         var clientDTO = _clientService.GetClientById(id);
         if (clientDTO is null)
@@ -39,10 +40,20 @@ public class ClientController : ControllerBase
         return Ok();
     }
 
-    [HttpPut("{id}")]
-    public IActionResult Put(int id, [FromRoute] ClientDTO client)
+    [HttpDelete("{id}")]
+    public IActionResult Delete(Guid id)
     {
-        _clientService.UpdateClient(id, client);
+        _clientService.DeleteClient(id);
+        return Ok();
+    }
+
+    [HttpPut]
+    public IActionResult Put([FromBody] ClientDTO client)
+    {
+        if (client is null)
+            return BadRequest();
+        
+        _clientService.UpdateClient(client);
         return Ok();
     }
 

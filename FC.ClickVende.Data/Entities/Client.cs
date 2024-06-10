@@ -1,6 +1,6 @@
-namespace FC.ClickVende.Business.DTOs;
+namespace FC.ClickVende.Data.Models;
 
-public class ClientDTO
+public class Client
 {
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
@@ -8,4 +8,5 @@ public class ClientDTO
     public string PhoneNumber { get; set; } = string.Empty;
     public string Cpf { get; set; } = string.Empty;
     public string Adress { get; set; } = string.Empty;
+
 }
